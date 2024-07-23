@@ -1,0 +1,10 @@
+Literatuur verzamelen
+
+Coleto (Schoch en co) http://digitalhumanities.org:8081/dhq/vol/15/4/000579/000579.html
+
+Voor edits in variants (dus afgeronde versies bijv gepubliceerde teksten)
+
+interessant om uit te proberen, gebruikt nltk en je moet de taal op engels, duits of frans zetten 
+Zou evt in deze file switch naar spacy en dan ned kunnen maken
+https://github.com/dh-trier/coleto/blob/main/coleto/text_preprocess.py
+
