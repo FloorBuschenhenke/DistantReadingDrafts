@@ -19,7 +19,7 @@ tokenize_text <- function(text, model) {
 
 
 
-# Apply lemmatization to all text contents
+# Apply tokenization
 tokenized_contents <- lapply(data$content, tokenize_text, model = model)
 
 tokenized_data <- data.frame(

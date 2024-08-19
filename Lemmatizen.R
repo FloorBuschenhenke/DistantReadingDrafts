@@ -53,7 +53,7 @@ write.csv(data, 'txt_contents_ruw.csv')
 ## tot hierboven easypeasy
 
 
-# Download the pre-trained model for English
+# Download the pre-trained model
 ud_model <- udpipe_download_model(language = "dutch")
 model <- udpipe_load_model(ud_model$file_model)
 
