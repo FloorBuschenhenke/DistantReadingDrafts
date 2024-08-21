@@ -31,6 +31,15 @@ output is similarity_matrix.csv
 similaritymatrix.R =
 neemt de output van de py-file en ipv alle versie met alle versies selecteert ie alleen dezelfde paren als de token en lemma files, dus 0-5 , 5-10 etc. ook plaatje van de similarity per paar
 
+woordsoortfilteroplemmas.R = 
+alleen nouns, adj, adv en verbs genomen van de lemmas om de hoogste semantische ladingen te krijgen. output is 'gefilterdelemmas.csv'
+
+docsimilarityBERToplemmas.py =
+vervolg van woordsoortfilter
+output is 'similarity_matrix_lemmas.csv'
+
+
+
 
 
 
