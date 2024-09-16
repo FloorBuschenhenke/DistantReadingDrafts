@@ -29,7 +29,7 @@ df <- df %>%
          countofTokLate = sapply(unique_in_later_tok, count_tokens_between_commas))
 
 # Display the updated dataframe
- # view(df)
+  # view(df)
 
 
 
@@ -39,17 +39,31 @@ long_data <- df %>%
   gather(key = "variable", value = "count", countofLemEarly, countofLemLate)%>%
   select(pair_ids, variable, count)
 
-manual_order <- c("0_5", "5_10", "10_15", "15_20", "20_25", "25_30", 
-                  "30_35", "35_40")  # Example order, adjust as needed
+
 
 # Convert pair_ids to a factor with the specified levels
-long_data$pair_ids <- factor(long_data$pair_ids, levels = manual_order)
+# long_data$pair_ids <- factor(long_data$pair_ids, levels = manual_order)
 
-# view(long_data)
+long_data$pair_ids <- factor(long_data$pair_ids)
+ # view(long_data)
 
+long_data_lemmas <- long_data %>%
+  slice(1:38)%>%
+  mutate(pair_ids = factor(pair_ids, levels = unique(pair_ids[order(
+    as.numeric(gsub("_.*", "", pair_ids)),  # Extract first part of pair_ids
+    as.numeric(gsub(".*_", "", pair_ids))   # Extract second part of pair_ids
+  )])))
 
+long_data_lem2 <- long_data %>%
+  slice(39:76)%>%
+  mutate(pair_ids = factor(pair_ids, levels = unique(pair_ids[order(
+    as.numeric(gsub("_.*", "", pair_ids)),  # Extract first part of pair_ids
+    as.numeric(gsub(".*_", "", pair_ids))   # Extract second part of pair_ids
+  )])))
 
+long_data <- bind_rows(long_data_lemmas, long_data_lem2)
 
+view(long_data)
 # Plot the data voor lemmas
 ggplot(long_data, aes(x = pair_ids, y = count, fill = variable)) +
   geom_col(position = "dodge") +
@@ -57,7 +71,9 @@ ggplot(long_data, aes(x = pair_ids, y = count, fill = variable)) +
        x = "Pair IDs",
        y = "Count of Lemmas",
        fill = "Lemmas in") +
-  theme_minimal()
+  theme_minimal()+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
 
 
 #### langere tabel voor plotten tokens####
@@ -66,25 +82,33 @@ long_data2 <- df %>%
   gather(key = "variable", value = "count", countofTokEarly, countofTokLate)%>%
   select(pair_ids, variable, count)
 
-manual_order <- c("0_5", "5_10", "10_15", "15_20", "20_25", "25_30", 
-                  "30_35", "35_40")  # Example order, adjust as needed
 
-# Convert pair_ids to a factor with the specified levels
-long_data2$pair_ids <- factor(long_data$pair_ids, levels = manual_order)
+long_data_tok1 <- long_data2 %>%
+  slice(1:38)%>%
+  mutate(pair_ids = factor(pair_ids, levels = unique(pair_ids[order(
+    as.numeric(gsub("_.*", "", pair_ids)),  # Extract first part of pair_ids
+    as.numeric(gsub(".*_", "", pair_ids))   # Extract second part of pair_ids
+  )])))
 
-# view(long_data)
+long_data_tok2 <- long_data2 %>%
+  slice(39:76)%>%
+  mutate(pair_ids = factor(pair_ids, levels = unique(pair_ids[order(
+    as.numeric(gsub("_.*", "", pair_ids)),  # Extract first part of pair_ids
+    as.numeric(gsub(".*_", "", pair_ids))   # Extract second part of pair_ids
+  )])))
 
-
+long_data_tok <- bind_rows(long_data_tok1, long_data_tok2)
 
 
 # Plot the data voor lemmas
-ggplot(long_data2, aes(x = pair_ids, y = count, fill = variable)) +
+ggplot(long_data_tok, aes(x = pair_ids, y = count, fill = variable)) +
   geom_col(position = "dodge") +
   labs(title = "Count of Unique Tokens",
        x = "Pair IDs",
        y = "Count of Tokens",
        fill = "Tokens in") +
-  theme_minimal()
+  theme_minimal()+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 
 

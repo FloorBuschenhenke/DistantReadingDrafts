@@ -1,7 +1,8 @@
 workflow
 
 lemmatizen.R = 
-het inlezen van de map oefendata (nu: begin- en eindversies van werksessie van jente. telkens sprongen van 5 genomen, dus sessie 0, sessie 5, sessie 10. laatste is sessie 35. en de gepubliceerde versie (met nr 40, maar is niet gelogd))Daarna: alle sessie doen
+het inlezen van de map oefendata (begonnen met elke5esessie_data dat was begin- en eindversies van werksessie van jente. telkens sprongen van 5 genomen, dus sessie 0, sessie 5, sessie 10. laatste is sessie 35. en de gepubliceerde versie (met nr 40, maar is niet gelogd)). nu staan in oefendata de eindsessies van alle sessies (ongefilterd, zitten missch wat valse starts tussen.)
+
 de txt plus naam van versie staat in 'txt_contents_ruw.csv'
 daarna met udpipe gelemmatized, output staat in 'lemmas.csv'
 

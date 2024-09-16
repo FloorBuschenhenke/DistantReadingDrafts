@@ -48,7 +48,7 @@ comparison_data <- data.frame(
 )
 
 # Display the new dataframe
-view(comparison_data)
+# view(comparison_data)
 
 write.csv(comparison_data, 'unieketokens.csv')
 

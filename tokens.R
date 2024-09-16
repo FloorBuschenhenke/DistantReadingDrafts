@@ -27,7 +27,7 @@ tokenized_data <- data.frame(
   content = unlist(tokenized_contents),
   stringsAsFactors = FALSE)
 
-view(tokenized_data)
+# view(tokenized_data)
 
 write.csv(tokenized_data, 'tokenized.csv')
 

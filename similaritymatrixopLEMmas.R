@@ -41,7 +41,7 @@ df_pairs$Pairs_id <- factor(df_pairs$Pairs_id, levels = manual_order)
 ggplot(df_pairs)+
   geom_col(aes(Pairs_id, similarity))+
   coord_cartesian(ylim = c(0.90, max(df_pairs$similarity, na.rm = TRUE)))+
-  theme_minimal()
+  theme_minimal()+labs(title = "cosine similarity of sets of unique lemmas")
 
 
 
