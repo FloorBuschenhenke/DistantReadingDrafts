@@ -63,7 +63,7 @@ long_data_lem2 <- long_data %>%
 
 long_data <- bind_rows(long_data_lemmas, long_data_lem2)
 
-view(long_data)
+# view(long_data)
 # Plot the data voor lemmas
 ggplot(long_data, aes(x = pair_ids, y = count, fill = variable)) +
   geom_col(position = "dodge") +

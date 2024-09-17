@@ -58,14 +58,16 @@ df['embedding'] = embeddings
 def calculate_pairwise_similarities(df):
     # Extract embeddings from the DataFrame
     embeddings = np.array(df['embedding'].tolist())
-    
     # Compute pairwise cosine similarity
     similarities = cosine_similarity(embeddings)
     
     return similarities
+  
+similarities = calculate_pairwise_similarities(df)
 
 # Create a DataFrame for the similarity matrix with identifiers as labels
 similarity_df = pd.DataFrame(similarities, index=df['identifier'], columns=df['identifier'])
+
 
 # Display the similarity matrix
 print("Cosine similarity matrix:")

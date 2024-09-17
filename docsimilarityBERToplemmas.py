@@ -64,6 +64,8 @@ def calculate_pairwise_similarities(df):
     
     return similarities
 
+similarities = calculate_pairwise_similarities(df)
+
 # Create a DataFrame for the similarity matrix with identifiers as labels
 similarity_df = pd.DataFrame(similarities, index=df['identifier'], columns=df['identifier'])
 

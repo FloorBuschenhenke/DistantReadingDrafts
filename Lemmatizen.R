@@ -49,6 +49,8 @@ data <- data.frame(
   stringsAsFactors = FALSE
 )
 
+view(data)
+
 write.csv(data, 'txt_contents_ruw.csv')
 ## tot hierboven easypeasy
 
