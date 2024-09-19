@@ -25,12 +25,14 @@ tellen van aantal unieke lemmas en woorden per paar versies,
 (daar staan ook nog de lijstjes van de tokens en lemmas zelf in)
 staafdiagrammen van zowel tokens als lemmas los
 
+documentlengte.R = woorden tellen per file en ggplot maken
+
 docsimilarityBERT.py=
 op basis van text 'txt_contents_ruw.csv' een soort doc2vec ('pairwise cosine similarity') uitgevoerd met de dutch bert
 output is similarity_matrix.csv
 
 similaritymatrix.R =
-neemt de output van de py-file en ipv alle versie met alle versies selecteert ie alleen dezelfde paren als de token en lemma files, dus 0-5 , 5-10 etc. ook plaatje van de similarity per paar
+neemt de output van de py-file en ipv alle versie met alle versies selecteert ie alleen dezelfde paren als de token en lemma files, dus 0-1 , 1-2 etc. ook plaatje van de similarity per paar
 
 woordsoortfilteroplemmas.R = 
 alleen nouns, adj, adv en verbs genomen van de lemmas om de hoogste semantische ladingen te krijgen. output is 'gefilterdelemmas.csv'
@@ -39,7 +41,9 @@ docsimilarityBERToplemmas.py =
 vervolg van woordsoortfilter
 output is 'similarity_matrix_lemmas.csv'
 
-
+levenshtein.R =
+lev distance tussen alle paren van sessies. 
+output is levenshteindistances.csv
 
 
 

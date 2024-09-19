@@ -38,7 +38,7 @@ annotate_text <- function(text, model) {
 # Apply lemmatization to all text contents
 annotated_contents <- lapply(data$content, annotate_text, model = model)
 
-# glimpse(annotated_contents)
+ # glimpse(annotated_contents)
 
 # Create a data frame with the lemmatized content and identifiers
 lemmatized_data <- data.frame(
