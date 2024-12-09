@@ -45,11 +45,11 @@ identifiers <- sapply(file_list, extract_numeric_part)
 # Create a data frame with the content and identifiers
 data <- data.frame(
   identifier = identifiers,
-  content = unlist(file_contents),
+  content = tolower(unlist(file_contents)),
   stringsAsFactors = FALSE
 )
 
-view(data)
+# view(data)
 
 write.csv(data, 'txt_contents_ruw.csv')
 ## tot hierboven easypeasy
@@ -82,7 +82,7 @@ lemmatized_data <- data.frame(
   content = unlist(lemmatized_contents),
   stringsAsFactors = FALSE)
 
-view(lemmatized_data)
+# view(lemmatized_data)
 
 write.csv(lemmatized_data, 'lemmas.csv')
 
