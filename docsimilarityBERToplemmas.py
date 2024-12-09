@@ -70,8 +70,8 @@ similarities = calculate_pairwise_similarities(df)
 similarity_df = pd.DataFrame(similarities, index=df['identifier'], columns=df['identifier'])
 
 # Display the similarity matrix
-print("Cosine similarity matrix:")
-print(similarity_df)
+#print("Cosine similarity matrix:")
+#print(similarity_df)
 
 output_file = 'similarity_matrix_lemmas.csv'
 similarity_df.to_csv(output_file, index=True)
