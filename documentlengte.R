@@ -14,7 +14,8 @@ words <- docs%>%
 
 ggplot(words)+
   geom_col(aes(identifier, wordcount))+
- scale_x_continuous(breaks = seq(0, 40, by = 5))
+ scale_x_continuous(breaks = seq(0, 40, by = 5))+
+  labs(x = 'sessions')
 
 ## verschil in woordlengte nog toevoegen: dan correlatie met andere measures bekijken
 #TODO
@@ -49,6 +50,17 @@ worddif <- df_pairs %>%
                                .default = id_pairs))%>%
   select(-id_pairs)
 
+wordplot <- worddif %>%
+  mutate(Pairs_id = factor(Pairs_id, levels = unique(Pairs_id[order(
+    as.numeric(gsub("_.*", "", Pairs_id)),  # Extract first part of pair_ids
+    as.numeric(gsub(".*_", "", Pairs_id))   # Extract second part of pair_ids
+  )])))
+
+
+ggplot(wordplot)+geom_col(aes(Pairs_id, wordcount_dif))+
+  theme_minimal()+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+  
 
 sim_doc <- read.csv('similaritymatrix_pairs_docs.csv')%>%
   rename(similarity_doc = similarity)%>%
