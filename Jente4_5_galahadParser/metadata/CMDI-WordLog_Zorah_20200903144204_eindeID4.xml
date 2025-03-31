@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><cmd:CMD xmlns:cmd="http://www.clarin.eu/cmd/1" xmlns:cmdp="http://www.clarin.eu/cmd/1/profiles/clarin.eu:cr1:p_1712653174443" xmlns:cue="http://www.clarin.eu/cmd/cues/1" xmlns:cue_old="http://www.clarin.eu/cmdi/cues/1" xmlns:dcr="http://www.isocat.org/ns/dcr" xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" CMDVersion="1.2" xsi:schemaLocation="http://www.clarin.eu/cmd/1 http://catalog.clarin.eu/ds/ComponentRegistry/rest/registry/profiles/clarin.eu:cr1:p_1712653174443/xsd">
+    <cmd:Header>
+        <cmd:MdCreator>Dutch Language Institute</cmd:MdCreator>
+        <cmd:MdCreationDate>2025-03-31</cmd:MdCreationDate>
+        <cmd:MdSelfLink/>
+        <cmd:MdProfile/>
+        <cmd:MdCollectionDisplayName>Jente4_5</cmd:MdCollectionDisplayName>
+    </cmd:Header>
+    <cmd:Resources>
+        <cmd:ResourceProxyList>
+            <cmd:ResourceProxy id="landingpage">
+                <cmd:ResourceType>LandingPage</cmd:ResourceType>
+                <cmd:ResourceRef>https://resolver.ivdnt.org/d25eb16a-715b-4d45-a1e5-717ed13dda35</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+        </cmd:ResourceProxyList>
+        <cmd:JournalFileProxyList/>
+        <cmd:ResourceRelationList/>
+     </cmd:Resources>
+    <cmd:IsPartOfList/>
+    <cmd:Components>
+        <cmdp:TextProfileINT_GaLAHaD>
+            <cmdp:corpusName>Jente4_5</cmdp:corpusName>
+            <cmdp:TextFile_GaLAHaD>
+                <cmdp:GaLAHaDPersistentIdentifier>d25eb16a-715b-4d45-a1e5-717ed13dda35_tei</cmdp:GaLAHaDPersistentIdentifier>
+                <cmdp:Conversion_GaLAHaD>
+                    <cmdp:conversionDescription>exported to tsv by GaLAHaD</cmdp:conversionDescription>
+                    <cmdp:Tool>
+                        <cmdp:toolName>GaLAHaD</cmdp:toolName>
+                        <cmdp:toolVersion>1.2.5</cmdp:toolVersion>
+                        <cmdp:toolURI>https://portal.clarin.ivdnt.org/galahad/home</cmdp:toolURI>                      
+                    </cmdp:Tool>
+                    <cmdp:Organisation>
+                        <cmdp:organisationName>Dutch Language Institute</cmdp:organisationName>
+                    </cmdp:Organisation>
+                </cmdp:Conversion_GaLAHaD>
+            </cmdp:TextFile_GaLAHaD>
+            <cmdp:Source_GaLAHaD>
+                <cmdp:sourceID>WordLog_Zorah_20200903144204_eindeID4</cmdp:sourceID>
+                <cmdp:sourceCollection>!No source name defined!</cmdp:sourceCollection>
+                <cmdp:sourceCollectionURI>!No source URL defined!</cmdp:sourceCollectionURI>
+                <cmdp:DateInformation_GaLAHaD>
+                    <cmdp:Date_Period>
+                        <cmdp:yearFrom>2020</cmdp:yearFrom>
+                        <cmdp:yearTo>2020</cmdp:yearTo>
+                     </cmdp:Date_Period>
+                </cmdp:DateInformation_GaLAHaD>
+            </cmdp:Source_GaLAHaD>
+            <cmdp:Language_GaLAHaD>
+                <cmdp:languageName>Dutch</cmdp:languageName>
+                <cmdp:dominantLanguage>true</cmdp:dominantLanguage>
+            </cmdp:Language_GaLAHaD>
+            <cmdp:Annotation>
+                <cmdp:annotationType>POS-tagging and lemmatisation</cmdp:annotationType>
+                <cmdp:annotationStyle>inline</cmdp:annotationStyle>
+                <cmdp:annotationSet>Tagset Diachroon Nederlands (Kern)</cmdp:annotationSet>
+                <cmdp:Provenance>
+                    <cmdp:annotationFormat>tsv</cmdp:annotationFormat>
+                    <cmdp:description>The file was automatically annotated by means of the platform GaLAHaD, which is a central hub for enriching historical Dutch.</cmdp:description>
+                    <cmdp:annotationProcess>
+                        <cmdp:annotationMode>automatically annotated</cmdp:annotationMode>
+                        <cmdp:ProcessorsAnnotators>
+                            <cmdp:Tool>
+                                <cmdp:toolName>hug-tdn-all-enhanced</cmdp:toolName>
+                                <cmdp:toolVersion>1.0.0</cmdp:toolVersion>
+                                <cmdp:toolURI>https://github.com/INL/galahad-huggingface-models/tree/master/models/galahad/tagger/pos_model_tdn_all_enhanced</cmdp:toolURI>
+                            </cmdp:Tool>
+                        </cmdp:ProcessorsAnnotators>
+                        <cmdp:Date_Period>
+                            <cmdp:yearFrom>2025</cmdp:yearFrom>
+                            <cmdp:yearTo>2025</cmdp:yearTo>
+                            <cmdp:monthFrom>--03</cmdp:monthFrom>
+                            <cmdp:monthTo>--03</cmdp:monthTo>
+                            <cmdp:dayFrom>---31</cmdp:dayFrom>
+                            <cmdp:dayTo>---31</cmdp:dayTo>
+                        </cmdp:Date_Period>
+                    </cmdp:annotationProcess>
+                </cmdp:Provenance>
+            </cmdp:Annotation>
+        </cmdp:TextProfileINT_GaLAHaD>
+    </cmd:Components>
+</cmd:CMD>
