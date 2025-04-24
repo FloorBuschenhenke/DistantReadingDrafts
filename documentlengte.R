@@ -2,8 +2,9 @@
 
 library(tidyverse)
 
-docs <- read.csv('tokenized.csv')%>%
-  select(-X)
+docs <- read.csv('Froglemmas_evpelt.csv')%>%
+  select(-X)%>%
+  filter(identifier != c("9", "10", "13"))
 
 # view(docs)
 
@@ -14,7 +15,6 @@ words <- docs%>%
 
 ggplot(words)+
   geom_col(aes(identifier, wordcount))+
- scale_x_continuous(breaks = seq(0, 40, by = 5))+
   labs(x = 'sessions')
 
 ## verschil in woordlengte nog toevoegen: dan correlatie met andere measures bekijken
