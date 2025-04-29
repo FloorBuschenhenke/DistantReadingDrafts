@@ -2,7 +2,7 @@
 
 #DistilBERT: A smaller, faster variant of BERT.zou ook nog kunnen
 
-library(reticulate)
+# library(reticulate)
 
 
 import pandas as pd

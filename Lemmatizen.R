@@ -4,7 +4,7 @@ library(tidyverse)
 library(udpipe)
 
 # Define the path to the directory containing the text files
-path_to_files <- "oefendata"
+path_to_files <- "Emilia_versies"
 
 # List all the .txt files in the directory
 file_list <- list.files(path = path_to_files, pattern = "\\.txt$", full.names = TRUE)
@@ -49,7 +49,7 @@ data <- data.frame(
   stringsAsFactors = FALSE
 )
 
-# view(data)
+ view(data)
 
 write.csv(data, 'txt_contents_ruw.csv')
 ## tot hierboven easypeasy

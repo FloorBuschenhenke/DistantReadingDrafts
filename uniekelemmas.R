@@ -2,13 +2,24 @@
 
 library(tidyverse)
 
-df <- read.csv('lemmas.csv')
+# df <- read.csv('lemmas.csv') is posthuma versie
+# hieronder vpelt gefrogde versie (en alleen nouns adverbs, verbs en adjectives)
 
-# names(df)
+
+df <- read.csv('gefilterdelemmasEvP.csv')%>%
+  select(-X)%>%
+  rename(content = lemma)%>%
+  group_by(identifier)%>%
+  summarise(content = str_c(content, collapse = ","), .groups = "drop")
+  
+view(df)
+
+names(df)
 
 # op volgorde van id nummer zetten
 df <- df[order(as.numeric(df$identifier)), ]
 
+ # view(df)
 # Initialize lists to store results
 unique_in_earlier <- list()
 unique_in_later <- list()
@@ -16,8 +27,8 @@ pair_ids <- list()
 
 # Function to extract unique lemmas from two texts
 extract_unique_lemmas <- function(text1, text2) {
-  lemmas1 <- unlist(strsplit(text1, " "))
-  lemmas2 <- unlist(strsplit(text2, " "))
+  lemmas1 <- unlist(strsplit(text1, ","))
+  lemmas2 <- unlist(strsplit(text2, ","))
   
   unique_lemmas1 <- setdiff(lemmas1, lemmas2)
   unique_lemmas2 <- setdiff(lemmas2, lemmas1)
@@ -50,8 +61,10 @@ comparison_data <- data.frame(
 # Display the new dataframe
 view(comparison_data)
 
-write.csv(comparison_data, 'uniekelemmas.csv')
 
+
+# write.csv(comparison_data, 'uniekelemmas.csv')
+write.csv(comparison_data, 'uniekelemmasEVP.csv')
 
 
 

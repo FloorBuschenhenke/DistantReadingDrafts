@@ -4,7 +4,7 @@ library(tidyverse)
 
 df <- read.csv('similarity_matrix.csv')
 
- view(df)
+ # view(df)
 
 #pairwise vergelijking maken
 
@@ -12,19 +12,16 @@ df$identifier <- as.numeric(df$identifier)
 
 df <- df[order(df$identifier), ]
 
+view(df)
 df_wide <- df%>%
-  pivot_longer(cols = 2:40, names_to = "id", values_to = "similarity")%>%
+  pivot_longer(cols = 2:19, names_to = "id", values_to = "similarity")%>%
   mutate(id = gsub("X", "", id))
 
- view(df_wide)
+ # view(df_wide)
 
 # view(df)
 
 ##handiger om de gepubli versie te hernoemen naar 38 voor de scriptjes
-
-df_wide <- df_wide %>%
-  mutate(identifier = recode(as.character(identifier), "40" = "38"),
-         id = recode(id, "40" = "38"))
 
 df_wide$id <- as.numeric(df_wide$id) 
 df_wide$identifier <- as.numeric(df_wide$identifier)  
@@ -43,18 +40,20 @@ df_pairs <- df_wide %>%
   )])))
   
 
-view(df_pairs)  
+ view(df_pairs)  
 
-df_pairs_hernoemd <- df_pairs%>%
-  mutate(Pairs_id = recode(Pairs_id, "37_38" = "37_40"))
+df_pairs_hernoemd <- df_pairs
 
-ggplot(df_pairs_hernoemd)+
+write.csv(df_pairs_hernoemd, 'similaritymatrix_pairs_docs.csv')
+
+p1 <- ggplot(df_pairs_hernoemd)+
   geom_col(aes(Pairs_id, similarity))+
   coord_cartesian(ylim = c(0.90, max(df_pairs$similarity, na.rm = TRUE)))+
   theme_minimal()+
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-
+p1
+ggsave("plotsimilarityopDocs.pdf", plot = p1, device = "pdf", width = 8, height = 6)
 
 
 
