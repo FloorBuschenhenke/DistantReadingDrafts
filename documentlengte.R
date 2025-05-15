@@ -4,9 +4,14 @@ library(tidyverse)
 
 docs <- read.csv('Froglemmas_evpelt.csv')%>%
   select(-X)%>%
-  filter(identifier != c("9", "10", "13"))
+  mutate(identifier2 = identifier+1)%>%
+  mutate(identifier2 = ifelse(identifier2 == 9, 11, identifier2),
+         identifier2 = ifelse(identifier2 == 13, 14, identifier2))
+  
+ # nummering txt files liep niet helemaal goed vanwege IL folder-issues
 
-# view(docs)
+
+ view(docs)
 
 words <- docs%>%
   mutate(wordcount = str_count(content, "\\S+") )
@@ -70,15 +75,19 @@ sim_lemmas <- read.csv('similaritymatrixoplemmas_pairs.csv')%>%
   rename(similarity_lemmas = similarity)%>%
   select(-X)
 
-levdist <- read.csv('levenshteindistances.csv')%>%
-  rename(Pairs_id = pair_id, lev_distance = distance)%>%
-  select(lev_distance, Pairs_id)
+sim_events <- ## pairwise verschil in eventscore toevoegen
+  
+  
+revisions <- # pairwise; maar is aantal revisies per sessie keer semantische lading
+
+# levdist <- read.csv('levenshteindistances.csv')%>%
+#   rename(Pairs_id = pair_id, lev_distance = distance)%>%
+#   select(lev_distance, Pairs_id)
 
 
 table <- worddif %>%
   left_join(sim_doc, by = "Pairs_id") %>%
-  left_join(sim_lemmas, by = "Pairs_id")%>%
-  left_join(levdist)
+  left_join(sim_lemmas, by = "Pairs_id")
 
  view(table)
 

@@ -1,4 +1,7 @@
 # een sessie geannoteerd (tekst) adhv event-taxonomy vauth et al
+## alleen de nieuw toegevoegde zinnen vanaf de tweede sessie dan...
+## nu alles gedaan van id0 en id1, en dan verschil berekenen narrativescore (nieuw-oud)
+## danwel verwijderde zinnen ook coderen ?
 
 library(tidyverse)
 
@@ -50,8 +53,11 @@ write.csv(data, 'txt_events_ruw.csv')
 
 # extractevents
 
+data$identifier <- as.numeric(data$identifier)
 data2 <- data%>%
-  group_by(identifier)
+  ##vanwege de id0 die eigenlijk id1 is (en verder)
+ mutate(identifier2 = identifier+1)%>%
+   group_by(identifier2)
 
 data2$nonevent <- str_count(data2$content,'[0]')
 data2$stativeevent <- str_count(data2$content, '[2]')
@@ -61,36 +67,39 @@ data2$changeevent <- str_count(data2$content, '[7]')
 view(data2)
 
 data3<- data2%>%
-   mutate(narrativescore = sum(stativeevent*2, processevent*5, changeevent*7, na.rm=TRUE))
+    mutate(narrativescore = sum(stativeevent*2, processevent*5, changeevent*7, na.rm=TRUE))%>%
+  ungroup()%>%
+    ## this one is the difference between current identifier and previous one, id0 = baseline
+  mutate(narrativediff = narrativescore-lag(narrativescore))
 
 view(data3)
 
 write.csv(data3, 'eventcount.csv') 
   
-ggplot(data3)+ geom_line(aes(identifier, narrativescore))
+ggplot(data3)+ geom_point(aes(identifier, narrativescore))
   
 
-df<-data3%>%
+
   ## pair_id maken
   ## waarde laatste - waarde eerste
- 
+data3 <- read.csv('eventcount.csv')
+df <- data3
+
+df$identifier <- as.numeric(df$identifier)
 df <- df[order(as.numeric(df$identifier)), ]
-
-df2 <- df %>%
-  mutate(narrativity_dif = c(NA, abs(diff(narrativescore))))
-
-## maar dat is absolute; kleiner of groter ook wel goed om te weten)
-# view(df2)
 
 
 # Generate the new table with consecutive pairs
-df_pairs <- df2 %>%
-  mutate(previous_identifier = lag(identifier)) %>%
+df_pairs <- df %>%
+  ungroup()%>%
+  mutate(previous_identifier = lag(identifier2))%>%
   filter(!is.na(previous_identifier)) %>%
-  mutate(id_pairs = paste(previous_identifier, identifier, sep = "_")) %>%
-  select(id_pairs, narrativity_dif)
+  mutate(id_pairs = paste(previous_identifier, identifier2, sep = "_"))%>%
+  select(-identifier,-identifier2, -content, -previous_identifier)%>%
+  select(id_pairs, everything())
+  
 
-# view(df_pairs)
+ view(df_pairs)
 
 worddif <- df_pairs %>%
   mutate(Pairs_id = case_match(id_pairs, "37_38" ~ "37_40", 
@@ -102,6 +111,7 @@ wordplot <- worddif %>%
     as.numeric(gsub("_.*", "", Pairs_id)),  # Extract first part of pair_ids
     as.numeric(gsub(".*_", "", Pairs_id))   # Extract second part of pair_ids
   )])))
+
 
 
 

@@ -4,34 +4,47 @@ library(tidyverse)
 
 df <- read.csv('similarity_matrix.csv')
 
- # view(df)
+  view(df)
 
 #pairwise vergelijking maken
 
 df$identifier <- as.numeric(df$identifier)
 
+
 df <- df[order(df$identifier), ]
 
 view(df)
 df_wide <- df%>%
+  mutate(identifier2 = identifier+1)%>%
+  mutate(identifier2 = ifelse(identifier2 == 9, 11, identifier2),
+         identifier2 = ifelse(identifier2 == 13, 14, identifier2))%>%
+  select(-identifier)%>%
+  rename(identifier = identifier2)%>%
+  select(identifier, everything())%>%
   pivot_longer(cols = 2:19, names_to = "id", values_to = "similarity")%>%
   mutate(id = gsub("X", "", id))
 
- # view(df_wide)
+  view(df_wide)
 
 # view(df)
 
-##handiger om de gepubli versie te hernoemen naar 38 voor de scriptjes
 
 df_wide$id <- as.numeric(df_wide$id) 
 df_wide$identifier <- as.numeric(df_wide$identifier)  
 
 df_pairs <- df_wide %>%
-  group_by(identifier)%>%
-  mutate(pairs = ifelse(id == identifier + 1, first(id), NA))%>%
-  filter(!is.na(pairs))%>%
-  select(-pairs)%>%
-  mutate(Pairs_id = str_c(as.character(identifier), as.character(id), sep = "_"))%>%
+   arrange(identifier, id) %>%
+  group_by(identifier) %>%
+  mutate(next_id = lead(id)) %>%
+  filter(!is.na(next_id)) %>%   
+  
+  #### todo zucht - dit werkt niet
+  transmute(label = paste(identifier, id, sep = "_"))
+
+  # mutate(pairs = ifelse(id == identifier + 1, first(id), NA))%>%
+  # filter(!is.na(pairs))%>%
+  # select(-pairs)%>%
+  # mutate(Pairs_id = str_c(as.character(identifier), as.character(id), sep = "_"))%>%
   ungroup()%>%
   select(-id, -identifier)%>%
   mutate(Pairs_id = factor(Pairs_id, levels = unique(Pairs_id[order(
