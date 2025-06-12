@@ -2,16 +2,11 @@
 
 library(tidyverse)
 
-docs <- read.csv('Froglemmas_evpelt.csv')%>%
-  select(-X)%>%
-  mutate(identifier2 = identifier+1)%>%
-  mutate(identifier2 = ifelse(identifier2 == 9, 11, identifier2),
-         identifier2 = ifelse(identifier2 == 13, 14, identifier2))
-  
- # nummering txt files liep niet helemaal goed vanwege IL folder-issues
+# docs <- read.csv('Froglemmas_evpelt.csv')%>%
+docs <- read.csv('txt_contents_ruw.csv')%>%
+  select(-X)
 
-
- view(docs)
+ # view(docs)
 
 words <- docs%>%
   mutate(wordcount = str_count(content, "\\S+") )
@@ -19,7 +14,7 @@ words <- docs%>%
 # view(words)
 
 ggplot(words)+
-  geom_col(aes(identifier, wordcount))+
+  geom_col(aes(factor(identifier), wordcount))+
   labs(x = 'sessions')
 
 ## verschil in woordlengte nog toevoegen: dan correlatie met andere measures bekijken
@@ -66,62 +61,5 @@ ggplot(wordplot)+geom_col(aes(Pairs_id, wordcount_dif))+
   theme_minimal()+
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
   
-
-sim_doc <- read.csv('similaritymatrix_pairs_docs.csv')%>%
-  rename(similarity_doc = similarity)%>%
-  select(-X)
-
-sim_lemmas <- read.csv('similaritymatrixoplemmas_pairs.csv')%>%
-  rename(similarity_lemmas = similarity)%>%
-  select(-X)
-
-sim_events <- ## pairwise verschil in eventscore toevoegen
-  
-  
-revisions <- # pairwise; maar is aantal revisies per sessie keer semantische lading
-
-# levdist <- read.csv('levenshteindistances.csv')%>%
-#   rename(Pairs_id = pair_id, lev_distance = distance)%>%
-#   select(lev_distance, Pairs_id)
-
-
-table <- worddif %>%
-  left_join(sim_doc, by = "Pairs_id") %>%
-  left_join(sim_lemmas, by = "Pairs_id")
-
- view(table)
-
-# zou een negatieve relaties verwachten tussen word count diff en de similarity
-
-
-# Select numeric columns from the table
-numeric_columns <- table %>%
-  select(where(is.numeric))
-
-# Compute the correlation matrix
-cor_matrix <- cor(numeric_columns, use = "complete.obs")
-
-# Print the correlation matrix
-print(cor_matrix)
-
- 
-library(Hmisc)
-
-# Compute correlations
-numeric_columns <- table %>% select(where(is.numeric))
-result <- rcorr(as.matrix(numeric_columns))
-
-# Correlation matrix
-print(result$r)
-
-# p-value matrix
-print(result$P)
-
-# Round the p-value matrix to 3 decimal places
-rounded_pvalues <- round(result$P, 3)
-
-# Print the rounded p-value matrix
-print(rounded_pvalues)
-
-
+write.csv(wordplot, 'doclengthpairdif.csv')
 

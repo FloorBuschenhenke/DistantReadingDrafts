@@ -52,39 +52,40 @@ data <- data.frame(
  view(data)
 
 write.csv(data, 'txt_contents_ruw.csv')
+
 ## tot hierboven easypeasy
 
-
-# Download the pre-trained model
-ud_model <- udpipe_download_model(language = "dutch")
-model <- udpipe_load_model(ud_model$file_model)
-
-# Annotate the text data and extract lemmas
-lemmatize_text <- function(text, model) {
-  # Annotate the text using the udpipe model
-  annotation <- udpipe_annotate(model, x = text)
-  annotated_df <- as.data.frame(annotation)
-  
-  # Extract lemmas
-  lemmatized_text <- paste(annotated_df$lemma, collapse = " ")
-  return(lemmatized_text)
-}
-
-
-# Apply lemmatization to all text contents
-lemmatized_contents <- lapply(data$content, lemmatize_text, model = model)
-
-# names(data)
-
-# Create a data frame with the lemmatized content and identifiers
-lemmatized_data <- data.frame(
-  identifier = data$identifier,
-  content = unlist(lemmatized_contents),
-  stringsAsFactors = FALSE)
-
-# view(lemmatized_data)
-
-write.csv(lemmatized_data, 'lemmas.csv')
-
-
-
+# 
+# # Download the pre-trained model
+# ud_model <- udpipe_download_model(language = "dutch")
+# model <- udpipe_load_model(ud_model$file_model)
+# 
+# # Annotate the text data and extract lemmas
+# lemmatize_text <- function(text, model) {
+#   # Annotate the text using the udpipe model
+#   annotation <- udpipe_annotate(model, x = text)
+#   annotated_df <- as.data.frame(annotation)
+#   
+#   # Extract lemmas
+#   lemmatized_text <- paste(annotated_df$lemma, collapse = " ")
+#   return(lemmatized_text)
+# }
+# 
+# 
+# # Apply lemmatization to all text contents
+# lemmatized_contents <- lapply(data$content, lemmatize_text, model = model)
+# 
+# # names(data)
+# 
+# # Create a data frame with the lemmatized content and identifiers
+# lemmatized_data <- data.frame(
+#   identifier = data$identifier,
+#   content = unlist(lemmatized_contents),
+#   stringsAsFactors = FALSE)
+# 
+# # view(lemmatized_data)
+# 
+# write.csv(lemmatized_data, 'lemmas.csv')
+# 
+# 
+# 

@@ -4,7 +4,7 @@ library(stringr)
 library(purrr)
 
 # Pad naar map met XML-bestanden
-pad_naar_xml <- "VPelt_lemmatizedFrog"  # <-- pas dit aan
+pad_naar_xml <- "VPelt_lemmatizedFrog"  
 
 # Functie om lemmas uit één bestand te halen
 extract_lemmas <- function(file) {
@@ -29,6 +29,9 @@ extract_lemmas <- function(file) {
   )
 }
   
+
+
+
   
 # Verwerk alle bestanden in map
 alle_bestanden <- list.files(pad_naar_xml, pattern = "\\.xml$", full.names = TRUE)

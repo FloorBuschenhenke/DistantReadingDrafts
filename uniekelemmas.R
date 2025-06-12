@@ -9,7 +9,7 @@ library(tidyverse)
 df <- read.csv('gefilterdelemmasEvP.csv')%>%
   select(-X)%>%
   rename(content = lemma)%>%
-  group_by(identifier)%>%
+   group_by(identifier)%>%
   summarise(content = str_c(content, collapse = ","), .groups = "drop")
   
 view(df)

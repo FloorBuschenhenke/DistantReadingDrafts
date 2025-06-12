@@ -68,9 +68,10 @@ een sessie geannoteerd (tekst) adhv event-taxonomy vauth et al, cijfers tussen [
 er niets anders tussen staat, extraheren en tellen om narrativity/eventfullness te meten per sessie
 en dan verschillen tussen sessieversies ook 
 
-Sessienummering evPelt: de docx files zitten in inputlog een mapje verder dan hoort, nummering
-hier is wel chronologisch, maar id0 hier is eigenlijk id1 inputlog ruwe data. in mapje
-id1 heeft IL wel de timed versions goed, maar de sessie-eindversie van de volgende (id2)- en zo verder
+Sessienummering evPelt:  heb ze handmatig aangepast aan de online editie, 
+ik hou de id-nrs aan. sommige tekstversies zaten in verkeerde 
+inputlogmapje. 
+
 
 
 
