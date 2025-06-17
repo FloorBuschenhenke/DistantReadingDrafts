@@ -12,16 +12,21 @@ sim_doc <- read.csv('similaritymatrix_pairs_docs.csv')%>%
   select(-identifier, -id)
 
 
-sim_lemmas <- read.csv('similaritymatrixoplemmas_pairs.csv')%>%
-  rename(similarity_lemmas = similarity)%>%
-  select(-X)
+# sim_lemmas <- read.csv('similaritymatrixoplemmas_pairs.csv')%>%
+  # rename(similarity_lemmas = similarity)%>%
+  # select(-X)
+
+lemmacount <- read.csv('uniquelemmasforcorrelations.csv')%>%
+  rename(Pairs_id = pair_ids)
 
   table <- worddif %>%
   left_join(sim_doc, by = "Pairs_id") %>%
-  left_join(sim_lemmas, by = "Pairs_id")%>%
-    left_join(nardif)
+  # left_join(sim_lemmas, by = "Pairs_id")%>%
+    left_join(nardif)%>%
+    left_join(lemmacount)%>%
+    select(-X)
 
-view(table)
+# view(table)
 
 # zou een negatieve relaties verwachten tussen word count diff en de similarity
 
