@@ -5,14 +5,13 @@ library(tidyverse)
 lem <- read.csv('uniekelemmasEVP.csv')
 
 # names(lem)
-colnames(lem) <- c("X", "pair_ids", "unique_in_earlier_lem", "unique_in_later_lem")
+# colnames(lem) <- c("pair_ids", "unique_in_earlier_lem", "unique_in_later_lem")
 
 # tok <- read.csv('unieketokens.csv')
-lem <- read.csv('uniekelemmas.csv')colnames(tok) <- c("X", "pair_ids", "unique_in_earlier_tok", "unique_in_later_tok")
+# lem <- read.csv('uniekelemmas.csv')colnames(tok) <- c("X", "pair_ids", "unique_in_earlier_tok", "unique_in_later_tok")
 
-df <- lem 
-  # left_join(tok)%>%
-  # select(-X)
+df <- lem %>%
+   select(-X)
 
   view(df)
 
@@ -26,13 +25,13 @@ count_tokens_between_commas <- function(text) {
 
 # Assuming 'lemmatized_data' is your dataframe with the 'content' column
 df <- df %>%
-  mutate(countofLemEarly = sapply(unique_in_earlier_lem, count_tokens_between_commas),
-         countofLemLate = sapply(unique_in_later_lem, count_tokens_between_commas))
+  mutate(countofLemEarly = sapply(unique_in_earlier, count_tokens_between_commas),
+         countofLemLate = sapply(unique_in_later, count_tokens_between_commas))
          # countofTokEarly = sapply(unique_in_earlier_tok, count_tokens_between_commas),
          # countofTokLate = sapply(unique_in_later_tok, count_tokens_between_commas))
 
 # Display the updated dataframe
-  # view(df)
+   view(df)
 
 
 
@@ -54,32 +53,49 @@ long_data <- long_data %>%
    mutate(pair_ids = factor(pair_ids, levels = unique(pair_ids[order(
     as.numeric(gsub("_.*", "", pair_ids)),  # Extract first part of pair_ids
     as.numeric(gsub(".*_", "", pair_ids))   # Extract second part of pair_ids
-  )])))
+  )])))%>%
+  mutate(variable = case_match(variable, 
+                               "countofLemEarly" ~ "Lemmas Leaving",
+                               "countofLemLate" ~"Lemmas Entering"))
 
-long_data_lem2 <- long_data %>%
-  slice(39:76)%>%
-  mutate(pair_ids = factor(pair_ids, levels = unique(pair_ids[order(
-    as.numeric(gsub("_.*", "", pair_ids)),  # Extract first part of pair_ids
-    as.numeric(gsub(".*_", "", pair_ids))   # Extract second part of pair_ids
-  )])))
+
+
+# long_data_lem2 <- long_data %>%
+#   slice(39:76)%>%
+#   mutate(pair_ids = factor(pair_ids, levels = unique(pair_ids[order(
+#     as.numeric(gsub("_.*", "", pair_ids)),  # Extract first part of pair_ids
+#     as.numeric(gsub(".*_", "", pair_ids))   # Extract second part of pair_ids
+#   )])))
 
 # long_data <- bind_rows(long_data_lemmas, long_data_lem2)
 
-# view(long_data)
+view(long_data)
 # Plot the data voor lemmas
 
 p <- ggplot(long_data, aes(x = pair_ids, y = count, fill = variable)) +
   geom_col(position = "dodge") +
-  labs(title = "Count of Unique Lemmas",
-       x = "Pair IDs",
+  labs(x = "Pair IDs",
        y = "Count of Lemmas",
-       fill = "Lemmas in") +
-  scale_fill_manual(values = c("#E69F00", "#56B4E9")) + # Adding Fall colors
+       fill = "Unique lemmas") +
+  scale_fill_manual(values = c("black","#b9bcb9")) + # Adding Fall colors
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 p
+
+write.csv(long_data, 'longdatalemmacountforplot.csv')
+
 ggsave("plotlemmas.pdf", plot = p, device = "pdf", width = 8, height = 6)
+
+
+
+short_data <- long_data%>%
+  pivot_wider(names_from = variable, values_from = count)
+
+view(short_data)
+
+write.csv(short_data, 'uniquelemmasforcorrelations.csv')
+
 
 #### langere tabel voor plotten tokens####
 

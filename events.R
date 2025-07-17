@@ -120,9 +120,22 @@ ggplot(wordplot)+geom_col(aes(Pairs_id, narrativediff))+
 write.csv(wordplot, 'eventnarrativitydiff.csv')
 
 
+ev <- read.csv('eventcount.csv')
+view(ev)
 
+long <- ev %>%
+  pivot_longer(
+    cols = 4:8,
+    names_to = "eventtypes",
+    values_to = "eventcount"
+  )%>%
+  filter(eventtypes != 'narrativescore')
 
-
+ggplot(long)+
+  geom_line(aes(identifier, eventcount, colour = eventtypes))+
+  theme_minimal()+
+  labs(x = 'session numbers', y = 'count of events')+
+  scale_x_continuous(breaks=unique(long$identifier))
 
 
 
